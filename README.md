@@ -90,9 +90,8 @@ This project is licensed under the MIT license. See the [COPYING.MIT](COPYING.MI
 
 
 
-# CHARRA-PM: Passport Model based on CHAllenge-Response based Remote Attestation with TPM 2.0 
 
-# CHARRA: CHAllenge-Response based Remote Attestation with TPM 2.0
+# CHARRA: CHAllenge-Response based Remote Attestation with TPM 2.0 as Passport Model
 
 ![CHARRA Logo](charra-logo_small.png)
 
