@@ -2,8 +2,9 @@
 The project allows to include swupdate in the yocto build for the Raspberry Pi3 and use it in pair with update-server feature.
 See update-server repository for details
 
-The update is based on the  https://github.com/sbabic/meta-swupdate-boards
-The attestation is based on the https://github.com/Fraunhofer-SIT/charra
+The update is based on the  https://github.com/sbabic/meta-swupdate-boards.
+
+The attestation is based on the https://github.com/Fraunhofer-SIT/charra.
 
 ## Getting Started
 This layer depends on:
