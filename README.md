@@ -98,127 +98,9 @@ This is a proof-of-concept implementation of the "Challenge/Response Remote Atte
 This proof-of-concept implementation realizes the Attesting Computing Environment—a Computing Environment capable of monitoring and attesting a target Computing Environment—as well as the target Computing Environment itself, as described in the [RATS Architecture](https://datatracker.ietf.org/doc/rfc9334/).
 CHARRA-PM is a development of the Passport Model, also defined by RATS workgroup documents using the source code from CHARRA and developing functions and interactions into a new model.
 
-
-## Changelog 2022-09-05 
-* This is a implementation of Passport Model using CHARRA project as base.
-* Now called CHARRA-PM
-* The intent is not replace CHARRA, but place the Passport Model as a new PoC.
-* This code also is branch msi-thesis at CHARRA fork https://github.com/aamarques/
-* 
-## Changelog 2021-03-17
-
-* Dynamic memory allocation for QCBOR encoded data using *malloc()*.
-  Thanks, @laurencelundblade.
-
-* Fixed some bugs.
-
-* Introduced macros for `free()`'ing heap data.
-
-## Changelog 2021-03-16 (v2)
-
-* Added random nonce generation with mbed TLS in Verifier.
-  Made it configurable whether to use the TPM or mbed TLS to generate the nonce.
-
-* Added media type CBOR to attestation request in Verifier.
-  Credits go to @mrdeep1.
-
-## Changelog 2021-03-16 (v1)
-
-* Updated `README.md` to include building *tpm2software/tpm2-tss* Docker image which CHARRA uses as a basis.
-  Reason: recently, the official *tpm2software/tpm2-tss* Docker images were removed from [Docker Hub](https://hub.docker.com/r/tpm2software/tpm2-tss).
-
-* Added Docker Compose file and description on how to use it to `README.md`.
-
-* Added `.editorconfig` file.
-
-* Using most recent stable versions of *tpm2-tss* and *tpm2-tools*.
-
-* Added compressed CHARRA SVG logo (`*.svgz`). See [charra-logo.svgz](./charra-logo.svgz).
-
-## Changelog 2021-03-10
-
-* Added support for CoAP large/block-wise data transfers, utilizing latest features of [libcoap](https://github.com/obgm/libcoap).
-  This enables CHARRA to send and receive data of arbitrary size.
-  Many thanks to @mrdeep1 for developing and fixing block-wise transfers in *libcoap*!
-
-* Console output/logging can be entirely disabled with the `disable-log` Make switch.
-  Colored logging can be disabled with the `disable-log-color` Make switch.
-  This allows CHARRA to be used in embedded systems.
-  Example:
-
-      make disable-log=1
-      make disable-log-color=1
-
-* For debugging purposes a Make flag `address-sanitizer` was introduced. Example:
-
-      make address-sanitizer=1
-
-* For TPM operations a custom TCTI module can be used.
-  For this purpose, the Make flag `with-tcti` was introduced.
-  If not specified, the default is `mssim`.
-  Use it like:
-
-      make with-tcti=device
-
-* To reduce the binary size, a Make flag `strip` was introduced.
-  It invokes *strip --strip-unneeded* on the resulting binaries.
-  Example:
-
-      make strip=1
-
-* Log levels of CHARRA and *libcoap* can now be specified at runtime, e.g.:
-
-      env LOG_LEVEL_CHARRA=TRACE LOG_LEVEL_COAP=DEBUG bin/verifier
-
-  * Supported CHARRA log levels are: `TRACE`, `DEBUG`, `INFO`, `WARN`, `ERROR`, and `FATAL`.
-
-  * Supported *libcoap* log levels are: `EMERG`, `ALERT`, `CRIT`, `ERR`, `WARNING`, `NOTICE`, `INFO`, and `DEBUG`.
-
-* CHARRA `Dockerfile` now uses Ubuntu 20.04 instead of Ubuntu 18.04 as its base image.
-
-* Added tools for debugging to `Dockerfile` (*tmux*, *gdb*, *cgdb*, and *clang-tools*).
-
-* Graceful exit using SIGINT handlers.
-
-* Simplified CoAP handling by introducing wrapper functions for
-*libcoap*.
-
-* Updated `README.md`.
-
-* CHARRA now has a logo, see [charra-logo.svg](./charra-logo.svg), [charra-logo.png](./charra-logo.png), and [charra-logo_small.png](./charra-logo_small.png).
-
-## Changelog 2022-09-16
-
-- Implementation of CHARRA-PM PoC
-
-
-## Next Steps
-
-* Add Relying Party Owner
-* Improve the Relying Party code
-
-<!-- * Allow verifier to perform periodic attestations, e.g. perform attestation every 10 seconds.
-* Update documentation. Perhaps externalize building and installation into `INSTALL.md`.
-* Refactor and implement forward-declared (but not yet implemented) functions.
-* Use non-zero reference PCRs.
-* "Extended" *TPM Quote* using TPM audit session(s) and *TPM PCR Read* operations.
-* Make CHARRA a library (`libcharra`) and make *attester* and *verifier* example code in `example` folder.
-* Add `*_free()` functions for all data transfer objects (DTOs).
-* Introduce semantic versioning as CHARRA develops along the way to become stable.
-
-*The order of the list is entirely arbitrary and does not reflect any priorities.* -->
-
-## How it Works: Protocol Flow
-
-
-The following diagram shows the protocol flow of the CHARRA-PM attestation process.
-
-![Passport Model](PassportModel.png)
-
-
 ## Build and Run
 
-CHARRA-PM (as its based on CHARRA) comes with a Docker test environment and Docker helper scripts to build and run it in Docker.
+Adding passport model (as its based on CHARRA) comes with a Docker test environment and Docker helper scripts to build and run it in Docker.
 <!-- It is also possible to build and run CHARRA manually. -->
 All commands assume to be executed in [Bash](https://www.gnu.org/software/bash/), the Bourne-again shell.
 
@@ -259,44 +141,44 @@ That is why the Docker base image for CHARRA-PM must now be built manually.
        docker build -t 'tpm2software/tpm2-tss:ubuntu-20.04' -f ubuntu-20.04.docker .
        popd
 
-#### Build the CHARRA-PM Docker Image using Docker Compose
+#### Build the Passport model Docker Image using Docker Compose
 
 1. Install [Docker Compose](https://docs.docker.com/compose/install/).
 
-2. Build the CHARRA-PM image(s):
+2. Build the passport model image(s):
 
        docker-compose build --build-arg uid="$UID" --build-arg gid="$UID"
 
-3. Run the CHARRA-PM container:
+3. Run the passport model container:
 
        docker-compose run --rm charra-dev-env
 
 <!-- TODO: Uncomment this when verified that it works
-### Run CHARRA-PM Apps in Docker Compose
+### Run passport model Apps in Docker Compose
 
     docker-compose run --rm -T charra-attester &
     docker-compose run --rm -T charra-verifier
 -->
 
-#### Build the CHARRA-PM Docker Image using Docker
+#### Build the Passport model Docker Image using Docker
 
-1. Build CHARRA-PM Docker image:
+1. Build passport model Docker image:
 
        ./docker/build.sh
        if there is an error: (docker build --no-cache .)
 
-2. Run CHARRA-PM Docker container:
+2. Run passport model Docker container:
 
        ./docker/run.sh
 
 <!-- #### Compile and Run CHARRA
 
-1. Compile CHARRA-PM (inside container):
+1. Compile  (inside container):
 
        cd charra/
        make -j
 
-2. Run CHARRA-PM (inside container):
+2. Run  (inside container):
 
        (bin/attester &); sleep .2 ; bin/verifier ; sleep 1 ; pkill -SIGINT attester
 
@@ -305,7 +187,7 @@ If you see "ATTESTATION SUCCESSFUL" you're done. Congratz :-D
  ### Compile and Run Manually 
 
 The provided `Dockerfile` lets you quickly test CHARRA-PM in a Docker environment.
-If you want to run CHARRA-PM bare metal, please refer to this guide here.
+If you want to run passport model bare metal, please refer to this guide here.
 
 #### Compile
 
