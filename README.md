@@ -337,6 +337,19 @@ If you see "ATTESTATION SUCCESSFUL" you're done. Congratz :-D
 
 For more parameter details, run one of the binary with `-h` parameter.
 
+#### My notes
+
+ git clone https://github.com/sbabic/swupdate.git -b 2023.05 && cd swupdate
+
+   
+   ls configs/ -1
+   make test_defconfig
+   make menuconfig
+   make 
+   make install
+   
+swupdate -w "--document-root ./www --port 8080"
+
 
 
 
