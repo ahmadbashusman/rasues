@@ -352,6 +352,11 @@ For more parameter details, run one of the binary with `-h` parameter.
    openssl rsa -in swupdate-priv.pem -out swupdate-public.pem -outform PEM -pubout
    sudo swupdate -v -k /home/ab/swupdate/swupdate-public.pem -w "--document-root /home/ab/swupdate/web-app --port 8080"
 
+
+
+
+   https://mkrak.org/2018/01/26/updating-embedded-linux-devices-part2/
+
    
 
 
