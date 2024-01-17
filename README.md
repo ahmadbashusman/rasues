@@ -4,6 +4,8 @@ The update is based on the  https://github.com/sbabic/meta-swupdate-boards.
 
 The attestation is based on the https://github.com/Fraunhofer-SIT/charra.
 
+The watchdog timer is based on https://github.com/siemens/efibootguard
+
 # meta-swupdate-rpi
 The project allows to include swupdate in the yocto build for the Raspberry Pi4 and use it in pair with update-server feature.
 See update-server repository for details
@@ -365,4 +367,4 @@ For more parameter details, run one of the binary with `-h` parameter.
 
 ## Disclaimer
 
-RAUES is an  early release that could contain issues and inconsistencies. The implementations provided in this repository are currently only research prototypes.
+RASUES is an  early release that could contain issues and inconsistencies. The implementations provided in this repository are currently only research prototypes.
