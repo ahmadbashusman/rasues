@@ -341,9 +341,10 @@ For more parameter details, run one of the binary with `-h` parameter.
 
 #### My notes
 
- git clone https://github.com/sbabic/swupdate.git -b 2023.05 && cd swupdate
+ git clone https://github.com/sbabic/swupdate.git -b 2023.05 && cd swupdate:
+ 
 
-   
+ `
    ls configs/ -1
    make test_defconfig
    make menuconfig
@@ -353,6 +354,7 @@ For more parameter details, run one of the binary with `-h` parameter.
    openssl genrsa -out swupdate-priv.pem
    openssl rsa -in swupdate-priv.pem -out swupdate-public.pem -outform PEM -pubout
    sudo swupdate -v -k /home/ab/swupdate/swupdate-public.pem -w "--document-root /home/ab/swupdate/web-app --port 8080"
+   `  
 
 
 
