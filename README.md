@@ -4,7 +4,7 @@ The update is based on the  https://github.com/sbabic/meta-swupdate-boards.
 
 The attestation is based on the https://github.com/Fraunhofer-SIT/charra.
 
-The watchdog timer is based on https://github.com/siemens/efibootguard
+The watchdog timer can used based on https://github.com/siemens/efibootguard
 
 # meta-swupdate-rpi
 The project allows to include swupdate in the yocto build for the Raspberry Pi4 and use it in pair with update-server feature.
@@ -325,15 +325,15 @@ To do that, you have to provide an external network for the attester Docker cont
 5. Go to `charra` directory and run attester binary in the attester docker container:
 
        cd charra
-       bin/attester
+       bin/attester -r --ip-rp=192.168.0.3 # ip of the verifier
 
 6. Run the relying_party binary in the relying party docker container (This must be up before verifier runs):
 
-       /bin/relying_party
+       /bin/relying_party -r
 
 6. Run the verifier binary in the verifier docker container:
 
-       /bin/verifier
+       /bin/verifier -r --ip=192.168.0.2
 
 If you see "ATTESTATION SUCCESSFUL" you're done. Congratz :-D
 
