@@ -329,11 +329,11 @@ To do that, you have to provide an external network for the attester Docker cont
 
 6. Run the relying_party binary in the relying party docker container (This must be up before verifier runs):
 
-       /bin/relying_party -r
+       bin/relying_party -r
 
 6. Run the verifier binary in the verifier docker container:
 
-       /bin/verifier -r --ip=192.168.0.2
+       bin/verifier -r --ip=192.168.0.2
 
 If you see "ATTESTATION SUCCESSFUL" you're done. Congratz :-D
 
