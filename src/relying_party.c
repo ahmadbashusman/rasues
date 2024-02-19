@@ -102,6 +102,9 @@ double total_t;
 int main(int argc, char** argv) {
 	int result = EXIT_FAILURE;
 
+    clock_t start_time = clock();  // Record the start time
+
+	
 	/* handle SIGINT */
 	signal(SIGINT, handle_sigint);
 
@@ -291,7 +294,16 @@ finish:
 	charra_free_and_null_ex(coap_context, coap_free_context);
 	coap_cleanup();
 
+
+
+	clock_t end_time = clock();    // Record the end time
+	double elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
+	charra_log_info("[" LOG_NAME "] Time taken for rp: %.4f seconds", elapsed_time);
+
+
+
 	return result;
+
 }
 
 /* --- function definitions ----------------------------------------------- */

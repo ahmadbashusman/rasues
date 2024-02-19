@@ -129,6 +129,8 @@ double total_t;
 
 int main(int argc, char** argv) {
 	CHARRA_RC result = EXIT_FAILURE;
+	clock_t start_time = clock();  // Record the start time
+
 
 	/* handle SIGINT */
 	signal(SIGINT, handle_sigint);
@@ -452,6 +454,16 @@ cleanup:
 
 	coap_cleanup();
 
+
+
+
+	clock_t end_time = clock();    // Record the end time
+	double elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
+	charra_log_info("[" LOG_NAME "] Time taken for verifier: %.4f seconds", elapsed_time);
+
+
+
+
 	return result;
 }
 
@@ -468,7 +480,7 @@ static CHARRA_RC create_attestation_request(
 
 	start_t = 0;
 	start_t =clock();
-	charra_log_info("[TIME] start time %ld secs", start_t);
+	charra_log_info("[TIME] start time %f secs", start_t);
 	
 
 	/* generate nonce */
@@ -618,7 +630,7 @@ static coap_response_t coap_attest_handler(
 
 	start_t = 0;
 	start_t =clock();
-	charra_log_info("[TIME] start time %ld secs", start_t);
+	charra_log_info("[TIME] start time %f secs", start_t);
 	
 	TPM2B_PUBLIC* tpm2_public_key = (TPM2B_PUBLIC*)res.tpm2_public_key;
 	charra_log_info("[" LOG_NAME "] Loading TPM key.");
@@ -632,7 +644,7 @@ static coap_response_t coap_attest_handler(
 
 
     end_t =clock();
-    charra_log_info("[TIME] end time %ld secs", end_t);
+    charra_log_info("[TIME] end time %f secs", end_t);
 	total_t = (double)(end_t - start_t)/CLOCKS_PER_SEC;
 	charra_log_info("[TIME] charra_load_external_public_key (TPM load key) = total time %f secs", total_t);
 
@@ -641,7 +653,7 @@ static coap_response_t coap_attest_handler(
 
 	start_t = 0;
 	start_t =clock();
-	charra_log_info("[TIME] start time %ld secs", start_t);
+	charra_log_info("[TIME] start time %f secs", start_t);
 	
 
 	/* prepare verification */
@@ -655,7 +667,7 @@ static coap_response_t coap_attest_handler(
 
 
     end_t =clock();
-    charra_log_info("[TIME] end time %ld secs", end_t);
+    charra_log_info("[TIME] end time %f fsecs", end_t);
 	total_t = (double)(end_t - start_t)/CLOCKS_PER_SEC;
 	charra_log_info("[TIME] Preparing TPM Quate = total time %f secs", total_t);
 
@@ -663,7 +675,7 @@ static coap_response_t coap_attest_handler(
 
 	start_t = 0;
 	start_t =clock();
-	charra_log_info("[TIME] start time %ld secs", start_t);
+	charra_log_info("[TIME] start time %f secs", start_t);
 	
 	bool attestation_result_signature = false;
 	{
@@ -720,7 +732,7 @@ static coap_response_t coap_attest_handler(
 
 
     end_t =clock();
-    charra_log_info("[TIME] end time %ld secs", end_t);
+    charra_log_info("[TIME] end time %f secs", end_t);
 	total_t = (double)(end_t - start_t)/CLOCKS_PER_SEC;
 	charra_log_info("[TIME] verify attestation signature (dtls mutual)total time %f secs", total_t);
 
@@ -729,7 +741,7 @@ static coap_response_t coap_attest_handler(
 
 	start_t = 0;
 	start_t =clock();
-	charra_log_info("[TIME] start time %ld secs", start_t);
+	charra_log_info("[TIME] start time %f secs", start_t);
 	
 	bool attestation_result_nonce = false;
 	{
@@ -751,7 +763,7 @@ static coap_response_t coap_attest_handler(
 
 
     end_t =clock();
-    charra_log_info("[TIME] end time %ld secs", end_t);
+    charra_log_info("[TIME] end time %f secs", end_t);
 	total_t = (double)(end_t - start_t)/CLOCKS_PER_SEC;
 	charra_log_info("[TIME] verify nonce  total time %f secs", total_t);
 
@@ -761,7 +773,7 @@ static coap_response_t coap_attest_handler(
 
 	start_t = 0;
 	start_t =clock();
-	charra_log_info("[TIME] start time %ld secs", start_t);
+	charra_log_info("[TIME] start time %f secs", start_t);
 	
 
 	bool attestation_result_pcrs = false;
@@ -793,7 +805,7 @@ static coap_response_t coap_attest_handler(
 
 
     end_t =clock();
-    charra_log_info("[TIME] end time %ld secs", end_t);
+    charra_log_info("[TIME] end time %f secs", end_t);
 	total_t = (double)(end_t - start_t)/CLOCKS_PER_SEC;
 	charra_log_info("[TIME] verify PCRs  total time %f secs", total_t);
 
@@ -802,7 +814,7 @@ static coap_response_t coap_attest_handler(
 
 	start_t = 0;
 	start_t =clock();
-	charra_log_info("[TIME] start time %ld secs", start_t);
+	charra_log_info("[TIME] start time %f secs", start_t);
 	
 	// TODO: Implement real verification
 	bool attestation_event_log = true;
@@ -839,7 +851,7 @@ static coap_response_t coap_attest_handler(
 
 
     end_t =clock();
-    charra_log_info("[TIME] end time %ld secs", end_t);
+    charra_log_info("[TIME] end time %f secs", end_t);
 	total_t = (double)(end_t - start_t)/CLOCKS_PER_SEC;
 	charra_log_info("[TIME] verify IMA event log  total time %f secs", total_t);
 

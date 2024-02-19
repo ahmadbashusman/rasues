@@ -46,6 +46,7 @@
 #include <time.h>
 
 
+
 #define CHARRA_UNUSED __attribute__((unused))
 
 /* --- config ------------------------------------------------------------- */
@@ -124,12 +125,10 @@ double total_t;
 
 
 int main(int argc, char** argv) {
-
-
+	clock_t start_time = clock();  // Record the start time
+	int result = EXIT_FAILURE;
 	
 
-
-	int result = EXIT_FAILURE;
 
 	/* handle SIGINT */
 	signal(SIGINT, handle_sigint);
@@ -318,6 +317,11 @@ finish:
 	charra_free_and_null_ex(coap_context, coap_free_context);
 	coap_cleanup();
 
+	clock_t end_time = clock();    // Record the end time
+	double elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
+	charra_log_info("[" LOG_NAME "] Time taken for attester main: %.4f seconds", elapsed_time);
+
+
 	return result;
 
 	
@@ -336,6 +340,10 @@ static void coap_attest_handler(struct coap_context_t* ctx CHARRA_UNUSED,
 	struct coap_resource_t* resource, struct coap_session_t* session,
 	struct coap_pdu_t* in, struct coap_binary_t* token,
 	struct coap_string_t* query, struct coap_pdu_t* out) {
+
+	clock_t start_time = clock();  // Record the start time
+
+
 	CHARRA_RC charra_r = CHARRA_RC_SUCCESS;
 	int coap_r = 0;
 	TSS2_RC tss_r = 0;
@@ -379,13 +387,13 @@ static void coap_attest_handler(struct coap_context_t* ctx CHARRA_UNUSED,
 	
 	start_t = 0;
 	start_t =clock();
-	charra_log_info("[TIME] start time %ld secs", start_t);
+	charra_log_info("[TIME] start time %f secs", start_t);
 	//charra_r = charra_unmarshal_attestation_request(data_len, data, &req);
 	for (int x =0;x<100000;x++){
 		charra_r = charra_unmarshal_attestation_request(data_len, data, &req);
 	}
 	end_t =clock();
-	charra_log_info("[TIME] end time %ld secs", end_t);
+	charra_log_info("[TIME] end time %f secs", end_t);
 	total_t = (double)(end_t - start_t)/CLOCKS_PER_SEC;
 	charra_log_info("[TIME] charra_unmarshal_attestation_request total time %f secs", total_t);
 
@@ -478,7 +486,7 @@ static void coap_attest_handler(struct coap_context_t* ctx CHARRA_UNUSED,
 
 
 	end_t =clock();
-	charra_log_info("[TIME] end time %ld secs", end_t);
+	charra_log_info("[TIME] end time %f secs", end_t);
 	total_t = (double)(end_t - start_t)/CLOCKS_PER_SEC;
 	charra_log_info("[TIME] charra_load_tpm2_key and Quate total time %f secs", total_t);
 
@@ -487,7 +495,7 @@ static void coap_attest_handler(struct coap_context_t* ctx CHARRA_UNUSED,
 	// another time
 	start_t = 0;
 	start_t =clock();
-	charra_log_info("[TIME] start time %ld secs", start_t);
+	charra_log_info("[TIME] start time %f secs", start_t);
 	
 	/* read IMA event log if requested */
 	uint8_t* ima_event_log = NULL;
@@ -539,7 +547,7 @@ static void coap_attest_handler(struct coap_context_t* ctx CHARRA_UNUSED,
 		
 	start_t = 0;
 	start_t =clock();
-	charra_log_info("[TIME] start time %ld secs", start_t);
+	charra_log_info("[TIME] start time %f secs", start_t);
 	
     
 	charra_log_info("[" LOG_NAME "] Marshaling response to CBOR.");
@@ -555,7 +563,7 @@ static void coap_attest_handler(struct coap_context_t* ctx CHARRA_UNUSED,
 
    
     end_t =clock();
-	charra_log_info("[TIME] end time %ld secs", end_t);
+	charra_log_info("[TIME] end time %f secs", end_t);
 	total_t = (double)(end_t - start_t)/CLOCKS_PER_SEC;
 	charra_log_info("[TIME]  charra_marshal_attestation_response    %f secs", total_t);
 
@@ -599,6 +607,17 @@ error:
 	if (tcti_ctx != NULL) {
 		Tss2_TctiLdr_Finalize(&tcti_ctx);
 	}
+
+
+
+
+
+
+	clock_t end_time = clock();    // Record the end time
+	double elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
+	charra_log_info("[" LOG_NAME "] Time taken  attester  for coap_attest_handler function: %.4f seconds", elapsed_time);
+
+
 }
 
 
@@ -609,6 +628,11 @@ static void coap_attestation_results_handler(struct coap_context_t* ctx,
 	struct coap_resource_t* resource CHARRA_UNUSED, struct coap_session_t* session,
 	struct coap_pdu_t* in, struct coap_binary_t* token CHARRA_UNUSED,
 	struct coap_string_t* query CHARRA_UNUSED, struct coap_pdu_t* out CHARRA_UNUSED) {
+	
+
+
+	clock_t start_time = clock();  // Record the start time
+
 	
 	/* --- receive incoming data --- */
 
@@ -762,7 +786,18 @@ static void coap_attestation_results_handler(struct coap_context_t* ctx,
 	} 
 
 error: 
+
 	result = EXIT_FAILURE;
+
+
+
+
+	clock_t end_time = clock();    // Record the end time
+	double elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
+	charra_log_info("[" LOG_NAME "] Time taken  attester  for coap_attestation_results_handler: %.4f seconds", elapsed_time);
+
+
+
 
 // PASSPORT MODEL SENDING MESSAGE TO RP - END
 }
