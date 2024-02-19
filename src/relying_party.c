@@ -61,7 +61,7 @@ coap_log_t coap_log_level = LOG_INFO;
 charra_log_t charra_log_level = CHARRA_LOG_INFO;
 
 /* config */
-//static const char LISTEN_ADDRESS[] = "172.18.0.2";
+//static const char LISTEN_ADDRESS[] = "192.168.0.2";
 char LISTEN_ADDRESS[] = "0.0.0.0";
 static unsigned int port = COAP_DEFAULT_PORT; // default port 5683
 #define CBOR_ENCODER_BUFFER_LENGTH 20480	  // 20 KiB should be sufficient

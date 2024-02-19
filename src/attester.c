@@ -62,7 +62,7 @@ charra_log_t charra_log_level = CHARRA_LOG_INFO;
 
 /* config */
 char LISTEN_ADDRESS[16] = "0.0.0.0";
-char LISTEN_RP[16] = "192.168.0.3";
+char LISTEN_RP[16] = "192.168.0.4";
 static unsigned int port = COAP_DEFAULT_PORT; // default port 5683
 static unsigned int port_rp = COAP_DEFAULT_PORT; 
 
