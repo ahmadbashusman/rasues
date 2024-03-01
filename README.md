@@ -1,106 +1,5 @@
 # RASUES 
 
-The update is based on the  https://github.com/sbabic/meta-swupdate-boards.
-
-The attestation is based on the https://github.com/Fraunhofer-SIT/charra.
-
-The watchdog timer can used based on https://github.com/siemens/efibootguard
-
-# meta-swupdate-rpi
-The project allows to include swupdate in the yocto build for the Raspberry Pi4 and use it in pair with update-server feature.
-See update-server repository for details
-
-
-## Getting Started
-This layer depends on:
-
-* URI: git://git.yoctoproject.org/poky
-  * branch: master
-  * revision: HEAD
-
-* URI: git://github.com/agherzan/meta-raspberrypi.git
-  * branch: master
-  * revision: HEAD
-
-To build run:
-
-```
-	bitbake update-image
-```
-
-Above will generate a `swu` file suitable for usage with SWUpdate on
-your device.
-
-Note that `update-image` depends on `ext4.gz` and you must make sure
-that it is part of `IMAGE_FSTYPES`.
-
-For usage with Raspberry Pi one must add the following to `local.conf`
-
-	RPI_USE_U_BOOT = "1"
-
-
-## Installing
-sudo apt-get update
-sudo apt-get install \
-     gawk wget git-core diffstat unzip texinfo gcc-multilib \
-     build-essential chrpath socat cpio \
-     python python3 python3-pip python3-pexpect \
-     xz-utils debianutils iputils-ping \
-     python3-git python3-jinja2 libegl1-mesa libsdl1.2-dev
-     
-### Clone all meta-layers
-
-mkdir yocto && cd yocto
-mkdir layers && cd layers
-git clone git://git.yoctoproject.org/poky -b zeus
-git clone git://github.com/openembedded/meta-openembedded.git -b zeus
-git clone https://github.com/agherzan/meta-raspberrypi.git -b zeus
-git clone https://github.com/sbabic/meta-swupdate -b zeus
-
-git clone https://github.com/sbabic/meta-swupdate-boards.git -b master
-
-cd ..
-. layers/poky/oe-init-build-env build
-
-
-### Add the following to build/conf/local.conf (Raspberry pi doesn't use uboot bootloader by default. swupdate requires ext4.gz image.)
-
-RPI_USE_U_BOOT = "1"
-IMAGE_FSTYPES = "rpi-sdimg ext4.gz"
-PREFERRED_PROVIDER_u-boot-fw-utils = "libubootenv"
-
-
-
-## Built With
-* [SW Update](https://sbabic.github.io/swupdate/) - Update client for embedded linux
-* [Raspberry Pi](https://www.raspberrypi.org) - Raspberry Pi 4 adapted kernel and firmware
-
-## Limitations
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. 
-
-
-## Contributing
-
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## License
-
-This project is licensed under the MIT license. See the [COPYING.MIT](COPYING.MIT) file for details.
-
-
-
-
-
-# CHARRA: CHAllenge-Response based Remote Attestation with TPM 2.0 as Passport Model
-
-![CHARRA Logo](charra-logo_small.png)
-
-This is a proof-of-concept implementation of the "Challenge/Response Remote Attestation" interaction model of the [IETF RATS](https://datatracker.ietf.org/wg/rats/about/) [Reference Interaction Models for Remote Attestation Procedures](https://datatracker.ietf.org/doc/draft-ietf-rats-reference-interaction-models/) using TPM 2.0. The [IETF Remote Attestation Procedures (RATS)](https://datatracker.ietf.org/wg/rats/about/) working group standardizes formats for describing assertions/claims about system components and associated evidence; and procedures and protocols to convey these assertions/claims to relying parties. Given the security and privacy sensitive nature of these assertions/claims, the working group specifies approaches to protect this exchanged data.
-
-This proof-of-concept implementation realizes the Attesting Computing Environment—a Computing Environment capable of monitoring and attesting a target Computing Environment—as well as the target Computing Environment itself, as described in the [RATS Architecture](https://datatracker.ietf.org/doc/rfc9334/).
-CHARRA-PM is a development of the Passport Model, also defined by RATS workgroup documents using the source code from CHARRA and developing functions and interactions into a new model.
 
 ## Build and Run
 
@@ -325,7 +224,7 @@ To do that, you have to provide an external network for the attester Docker cont
 5. Go to `charra` directory and run attester binary in the attester docker container:
 
        cd charra
-       bin/attester -r --ip-rp=192.168.0.3 # ip of the verifier
+       bin/attester -r --ip-rp=192.168.0.3 # ip relying party
 
 6. Run the relying_party binary in the relying party docker container (This must be up before verifier runs):
 
@@ -338,6 +237,105 @@ To do that, you have to provide an external network for the attester Docker cont
 If you see "ATTESTATION SUCCESSFUL" you're done. Congratz :-D
 
 For more parameter details, run one of the binary with `-h` parameter.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# meta-swupdate-rpi
+The project allows to include swupdate in the yocto build for the Raspberry Pi4 and use it in pair with update-server feature.
+See update-server repository for details
+
+
+## Getting Started
+This layer depends on:
+
+* URI: git://git.yoctoproject.org/poky
+  * branch: master
+  * revision: HEAD
+
+* URI: git://github.com/agherzan/meta-raspberrypi.git
+  * branch: master
+  * revision: HEAD
+
+To build run:
+
+```
+	bitbake update-image
+```
+
+Above will generate a `swu` file suitable for usage with SWUpdate on
+your device.
+
+Note that `update-image` depends on `ext4.gz` and you must make sure
+that it is part of `IMAGE_FSTYPES`.
+
+For usage with Raspberry Pi one must add the following to `local.conf`
+
+	RPI_USE_U_BOOT = "1"
+
+
+## Installing
+sudo apt-get update
+sudo apt-get install \
+     gawk wget git-core diffstat unzip texinfo gcc-multilib \
+     build-essential chrpath socat cpio \
+     python python3 python3-pip python3-pexpect \
+     xz-utils debianutils iputils-ping \
+     python3-git python3-jinja2 libegl1-mesa libsdl1.2-dev
+     
+### Clone all meta-layers
+
+mkdir yocto && cd yocto
+mkdir layers && cd layers
+git clone git://git.yoctoproject.org/poky -b zeus
+git clone git://github.com/openembedded/meta-openembedded.git -b zeus
+git clone https://github.com/agherzan/meta-raspberrypi.git -b zeus
+git clone https://github.com/sbabic/meta-swupdate -b zeus
+
+git clone https://github.com/sbabic/meta-swupdate-boards.git -b master
+
+cd ..
+. layers/poky/oe-init-build-env build
+
+
+### Add the following to build/conf/local.conf (Raspberry pi doesn't use uboot bootloader by default. swupdate requires ext4.gz image.)
+
+RPI_USE_U_BOOT = "1"
+IMAGE_FSTYPES = "rpi-sdimg ext4.gz"
+PREFERRED_PROVIDER_u-boot-fw-utils = "libubootenv"
+
+
+
+## Built With
+* [SW Update](https://sbabic.github.io/swupdate/) - Update client for embedded linux
+* [Raspberry Pi](https://www.raspberrypi.org) - Raspberry Pi 4 adapted kernel and firmware
+
+## Limitations
+## Versioning
+
+We use [SemVer](http://semver.org/) for versioning. 
+
+
+## Contributing
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+
+## License
+
+This project is licensed under the MIT license. See the [COPYING.MIT](COPYING.MIT) file for details.
+
+
+
 
 #### My notes
 
@@ -362,7 +360,11 @@ For more parameter details, run one of the binary with `-h` parameter.
 
    
 
+The update is based on the  https://github.com/sbabic/meta-swupdate-boards.
 
+The attestation is based on the https://github.com/Fraunhofer-SIT/charra.
+
+The watchdog timer can used based on https://github.com/siemens/efibootguard
 
 
 
