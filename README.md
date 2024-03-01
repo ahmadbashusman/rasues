@@ -224,7 +224,7 @@ To do that, you have to provide an external network for the attester Docker cont
 5. Go to `charra` directory and run attester binary in the attester docker container:
 
        cd charra
-       bin/attester -r --ip-rp=192.168.0.3 # ip relying party
+       bin/attester -r --ip-rp=192.168.0.4 # ip relying party
 
 6. Run the relying_party binary in the relying party docker container (This must be up before verifier runs):
 
