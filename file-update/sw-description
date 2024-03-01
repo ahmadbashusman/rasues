@@ -1,0 +1,91 @@
+software =
+{
+	version = "1.0.0";
+
+	raspberrypi4 = {
+		hardware-compatibility: [ "1.0"];
+		stable : {
+			copyA : {
+				filename: (
+					   {
+						filename = "rasues";
+						path = "/mnt/root/usr/bin/rasues";
+					   }
+				);
+				
+				filename: (
+					   {
+						filename = "OS_VERSION.txt";
+						path = "/mnt/root/home/root/OS_VERSION.txt";
+					   }
+				);
+				
+				
+				filename: (
+					   {
+						filename = "logo.png";
+						path = "/mnt/root/www/pages/logo.png";
+					   }
+				);
+				
+				
+				filename: (
+					   {
+						filename = "README.md";
+						path = "/mnt/root/www/pages/README.md";
+					   }
+				);
+								
+	
+				scripts: (
+					  {
+						filename = "update.sh";
+						type = "shellscript";
+					  }
+				);
+			};
+			
+			
+			copyB : {
+				filename: (
+					   {
+						filename = "rasues";
+						path = "/mnt/root/usr/bin/rasues";
+					   }
+				);
+				
+				filename: (
+					   {
+						filename = "OS_VERSION.txt";
+						path = "/mnt/root/home/root/OS_VERSION.txt";
+					   }
+				);  
+				
+				
+				filename: (
+					   {
+						filename = "logo.png";
+						path = "/mnt/root/www/pages/logo.png";
+					   }
+				);
+					
+				filename: (
+					   {
+						filename = "README.md";
+						path = "/mnt/root/www/pages/README.md";
+					   }
+				);
+								
+
+				scripts: (
+					  {
+						filename = "update.sh";
+						type = "shellscript";
+					  }
+				);
+                                
+
+			};
+
+	}
+}

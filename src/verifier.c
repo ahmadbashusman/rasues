@@ -606,7 +606,7 @@ static coap_response_t coap_attest_handler(
 		goto cleanup;
 	}
 
-	/* --- verify TPM Quote --- */
+	/* --- verify TPM xe --- */
 	charra_log_info("[" LOG_NAME "] Starting verification.");
 
 	/* initialize ESAPI */

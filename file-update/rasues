@@ -1,0 +1,7 @@
+#!/bin/sh
+
+source /etc/swupdate/swupdate.env
+TENANT=`sed -n 's/.*tenant.*=.*"\(.*\)".*/\1/p' ${SWUPDATE_CONF_DIR}/swupdate.cfg`
+UFURL=`sed -n 's/.*url.*=.*"\(.*\)".*/\1/p' ${SWUPDATE_CONF_DIR}/swupdate.cfg`
+
+echo "RASUES is setup to connect to tenant '$TENANT' on '$UFURL'"
